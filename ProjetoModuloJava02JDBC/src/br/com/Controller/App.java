@@ -48,12 +48,7 @@ public class App {
 				//ALTERAR DADOS DO CLIENTE
 				System.out.println("Entre com o CPF do cliente a ser alterado:");
 				pesquisa = sc.nextLine();
-				try {
-					controlPessoa.updatePerson(pesquisa);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				controlPessoa.updatePerson(pesquisa);
 				
 			break;
 			
@@ -61,12 +56,7 @@ public class App {
 				//PROCURA CLIENTE ESPECIFICO.
 				System.out.println("Entre com o CPF do cliente:");
 				pesquisa = sc.nextLine();
-				try {
-					controlPessoa.SelectOnlyPerson(pesquisa);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				controlPessoa.SelectOnlyPerson(pesquisa);
 			
 			break;
 			
@@ -74,23 +64,12 @@ public class App {
 				// REMOVE CLIENTE.
 				System.out.println("Entre com o CPF do cliente a ser deletado:");
 				pesquisa = sc.nextLine();
-				try {
-					controlPessoa.DeletePerson(pesquisa);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				controlPessoa.DeletePerson(pesquisa);
 				
 			break;
 			
 			case 5:
-				//LISTAR TODOS OS CLIENTES.
-				try {
-					controlPessoa.SelectAllPerson();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				controlPessoa.SelectAllPerson();
 				
 			break;
 			

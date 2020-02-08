@@ -74,7 +74,7 @@ public class ControllerPessoa {
 		System.out.println("Cadastrado com Sucesso!!! :)) ");
 	}
 
-	public void SelectAllPerson() throws SQLException {
+	public void SelectAllPerson() {
 		
 		int numeroDeClientes = 0;
 		PessoaDAO pDAO = new PessoaDAO();
@@ -117,7 +117,7 @@ public class ControllerPessoa {
 		
 	}
 
-	public void SelectOnlyPerson(String cpfCliente) throws SQLException {
+	public void SelectOnlyPerson(String cpfCliente){
 		
 		PessoaDAO pDAO = new PessoaDAO();
 		Pessoa cliente = pDAO.SelectOnlyPersonDAO(cpfCliente);
@@ -144,7 +144,7 @@ public class ControllerPessoa {
 		
 	}
 
-	public void DeletePerson (String cpfCliente) throws SQLException {
+	public void DeletePerson (String cpfCliente) {
 		
 		PessoaDAO pDAO = new PessoaDAO();
 		EnderecoDAO endDAO = new EnderecoDAO();
@@ -157,7 +157,7 @@ public class ControllerPessoa {
 		System.out.println("Cliente: "+pessoa.getNome()+" excluido com sucesso!!");
 	}
 	
-	public void updatePerson(String cpfCliente) throws SQLException {
+	public void updatePerson(String cpfCliente) {
 		
 		boolean sair = false;
 		int campoAlterar=0;
