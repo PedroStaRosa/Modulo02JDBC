@@ -76,8 +76,10 @@ public class ControllerPessoa {
 
 	public void SelectAllPerson() throws SQLException {
 		
+		int numeroDeClientes = 0;
 		PessoaDAO pDAO = new PessoaDAO();
 		List<Pessoa> listaPEssoas = pDAO.SelectAllPersonDAO();
+		
 		
 		System.out.println("LISTA DE CLIENTES:");
 		
@@ -101,7 +103,12 @@ public class ControllerPessoa {
 						   +"\n";
 				
 			System.out.println(listaCliente);
+			numeroDeClientes++;
 			}
+			System.out.println("=========================");
+			System.out.println("CLIENTES CADASTRADOS: "+numeroDeClientes);
+			System.out.println("=========================");
+			
 		} else {
 			
 			System.out.println("Nenhum cliente Cadastrado.");
