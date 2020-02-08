@@ -66,18 +66,11 @@ public class ControllerPessoa {
 		System.out.println("Complemento: (CASA/APT)");
 		end.setComplemento(sc.nextLine());
 
-
-		 
-		try {
-			PessoaDAO pDAO = new PessoaDAO();
-			p.setEndereco(controlEnd.insertEndereco(end));
-			controlConta.insertConta(c);
-			pDAO.insertPersonDAO(p);
-			
-		} catch (SQLException e) {	
-			
-			System.out.println("Erro ao inserir cliente - Erro: "+ e.getMessage());
-		}
+ 
+		PessoaDAO pDAO = new PessoaDAO();
+		p.setEndereco(controlEnd.insertEndereco(end));
+		controlConta.insertConta(c);
+		pDAO.insertPersonDAO(p);
 		System.out.println("Cadastrado com Sucesso!!! :)) ");
 	}
 
@@ -88,24 +81,33 @@ public class ControllerPessoa {
 		
 		System.out.println("LISTA DE CLIENTES:");
 		
-		for (Pessoa person : listaPEssoas) {
-
-			String listaCliente ="---------------------------------------"
-					   +"\n#\tNome: "+person.getNome()
-					   +"\n#\tCPF: "+person.getCpf()
-					   +"\n#\tIdade: "+person.getIdade()
-					   +"\n#\tSexo: "+person.getSexo()
-					   +"\n#\t========== CONTA ==========="
-					   +"\n#\tNumero da conta: "+person.getConta().getIdConta()
-					   +"\n#\tLimite da Conta: "+person.getConta().getLimite()
-					   +"\n#\tSaldo em Conta: R$ "+person.getConta().getSaldo()
-					   +"\n#\t========== ENDEREÇO =========="
-					   +"\n#\tRua: "+person.getEndereco().getRua()
-					   +"\n#\tNumero: "+person.getEndereco().getNumero()
-					   +"\n#\tComplemento: "+person.getEndereco().getComplemento();
+		if(listaPEssoas != null && !listaPEssoas.isEmpty()) { // VERIFICA SE A LISTA ESTA VAZIA.
 			
-		System.out.println(listaCliente);
+			for (Pessoa person : listaPEssoas) {
+
+				String listaCliente ="---------------------------------------"
+						   +"\n#\tNome: "+person.getNome()
+						   +"\n#\tCPF: "+person.getCpf()
+						   +"\n#\tIdade: "+person.getIdade()
+						   +"\n#\tSexo: "+person.getSexo()
+						   +"\n#\t========== CONTA ==========="
+						   +"\n#\tNumero da conta: "+person.getConta().getIdConta()
+						   +"\n#\tLimite da Conta: "+person.getConta().getLimite()
+						   +"\n#\tSaldo em Conta: R$ "+person.getConta().getSaldo()
+						   +"\n#\t========== ENDEREÇO =========="
+						   +"\n#\tRua: "+person.getEndereco().getRua()
+						   +"\n#\tNumero: "+person.getEndereco().getNumero()
+						   +"\n#\tComplemento: "+person.getEndereco().getComplemento()
+						   +"\n";
+				
+			System.out.println(listaCliente);
+			}
+		} else {
+			
+			System.out.println("Nenhum cliente Cadastrado.");
 		}
+
+		
 	}
 
 	public void SelectOnlyPerson(String cpfCliente) throws SQLException {

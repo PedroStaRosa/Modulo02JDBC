@@ -15,19 +15,15 @@ import br.com.Model.Util.ConnectionBD;
 
 public class PessoaDAO {
 
-	private Connection connection;
-	
-	public PessoaDAO() throws SQLException {
-		this.connection = new ConnectionBD().getConnection();
-	}
+	ConnectionBD conexao = new ConnectionBD();
 
 	public void insertPersonDAO (Pessoa pessoa) {
 		
 		String sql = "insert into pessoa (cpf,nome,idade,sexo,numero_conta,id_endereco)"
 				+ "values (?,?,?,?,?,?)";
-		
+		Connection conn = conexao.getConnection();
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, pessoa.getCpf());
 			stmt.setString(2, pessoa.getNome());
@@ -40,21 +36,25 @@ public class PessoaDAO {
 			stmt.close();
 			
 		} catch (SQLException e) {	
-			throw new RuntimeException(e);
+				System.out.println("Erro ao inserir pessoa - ERRO: "+e.getMessage());
+		}finally {
+			conexao.fecharConn(conn);
 		}
 		
 	}
 
-	public List<Pessoa> SelectAllPersonDAO() throws SQLException {
+	public List<Pessoa> SelectAllPersonDAO(){
 		
 		String sqlSelect = "Select * from Pessoa " + "order by nome";
 		
 		List<Pessoa> pessoaList = new ArrayList<Pessoa>();
-		
-		PreparedStatement stmt = this.connection.prepareStatement(sqlSelect);
-		
-		ResultSet result = stmt.executeQuery();
-		
+		Connection conn = conexao.getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement(sqlSelect);
+			
+			ResultSet result = stmt.executeQuery();
+			
 			while(result.next()) {
 				
 				Pessoa pessoa = new Pessoa();
@@ -98,27 +98,32 @@ public class PessoaDAO {
 				pessoaList.add(pessoa);
 				
 			}
-		stmt.close();
-		//connection.close();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao listar pessoas - ERRO: "+e.getMessage());
+		}finally {
+			conexao.fecharConn(conn);
+		}
+		
 		return pessoaList;
 			
 		}
 	
-	public Pessoa SelectOnlyPersonDAO(String cpfCliente) throws SQLException {
+	public Pessoa SelectOnlyPersonDAO(String cpfCliente){
 		
 		String sqlSelectOnlyPerson = "Select * from Pessoa " + "where cpf = "+cpfCliente+"";
 		
 		// Pessoa cliente = new Pessoa();
 		Pessoa pessoa = new Pessoa();
-		
-		PreparedStatement stmt = this.connection.prepareStatement(sqlSelectOnlyPerson);
-		
-		ResultSet result = stmt.executeQuery();
-		
+		Connection conn = conexao.getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement(sqlSelectOnlyPerson);
+			ResultSet result = stmt.executeQuery();
+			
 			while(result.next()) {
-				
-				
-	
+
 				pessoa.setCpf(result.getString("cpf"));
 				pessoa.setNome(result.getString("nome"));
 				pessoa.setIdade(result.getInt("idade"));
@@ -153,43 +158,55 @@ public class PessoaDAO {
 				enderecoRetorno.setComplemento(endDAO.selectEnderecoPessoa(endereco).getComplemento());
 				
 				pessoa.setEndereco(enderecoRetorno);
-				
-				// ADD PESSOA
-
-				
 			}
 		stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao listar cliente CPF: "+cpfCliente+" - ERRO: "+e.getMessage());
+		}finally {
+			conexao.fecharConn(conn);
+		}
+		
+		
 		//connection.close();
 		return pessoa;
 			
 		} 
 	
-	public void DeletePersonDAO(String cpfCliente) throws SQLException {
+	public void DeletePersonDAO(String cpfCliente){
 		
 		String sqlDeletePerson = "Delete from Pessoa " + "where cpf = "+cpfCliente+"";
-
+		Connection conn = conexao.getConnection();
 		try {
 			
-			PreparedStatement stmt = this.connection.prepareStatement(sqlDeletePerson);
+			PreparedStatement stmt = conn.prepareStatement(sqlDeletePerson);
 
 			stmt.execute();
 			stmt.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro ao deletar pessoa - ERRO: "+e.getMessage());
+		} finally {
+			conexao.fecharConn(conn);
 		}
 	}
 	
-	public void updatePersonDAO(String cpfCLiente, String campoAlterado, String dadoAlterado) throws SQLException {
+	public void updatePersonDAO(String cpfCLiente, String campoAlterado, String dadoAlterado)  {
 		
 			String sql = "update pessoa set "+campoAlterado+" = '"+dadoAlterado+"' where cpf = "+cpfCLiente+"";
-			//System.out.println("sql: "+sql);
-			System.out.println("Cliente alterado com sucesso!");
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			stmt.execute();
-			stmt.close();
-		
+			Connection conn = conexao.getConnection();
+
+			PreparedStatement stmt;
+			try {
+				stmt = conn.prepareStatement(sql);
+				stmt.execute();
+				stmt.close();
+			} catch (SQLException e) {
+				System.out.println("Erro ao modificar pessoa de CPF: "+cpfCLiente+" - ERRO: "+e.getMessage());
+			}finally {
+				conexao.fecharConn(conn);
+			}
+
 	}
 	
 }
