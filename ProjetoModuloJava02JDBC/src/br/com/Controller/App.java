@@ -10,7 +10,7 @@ public class App {
 		
 		/*Connection conn = new ConnectionBD().getConnection();
 		System.out.println("Connection OK !!! :)");*/
-
+		System.out.println("Hello Git");
 		menu();
 
 	}
