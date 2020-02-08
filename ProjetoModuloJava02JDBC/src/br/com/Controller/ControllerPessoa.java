@@ -66,13 +66,10 @@ public class ControllerPessoa {
 		System.out.println("Complemento: (CASA/APT)");
 		end.setComplemento(sc.nextLine());
 
-		
-		
-		
-		
-		PessoaDAO pDAO;
+
+		 
 		try {
-			pDAO = new PessoaDAO();
+			PessoaDAO pDAO = new PessoaDAO();
 			p.setEndereco(controlEnd.insertEndereco(end));
 			controlConta.insertConta(c);
 			pDAO.insertPersonDAO(p);

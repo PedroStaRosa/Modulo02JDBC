@@ -5,17 +5,18 @@ import java.sql.DriverManager;
 
 public class ConnectionBD {
 
+	/*
 	// notebook
 	String bd = "jdbc:mysql://localhost/bancofuctura?autoReconnect=true&useSSL=false";
 	String user = "root";
 	String password = "@Gt0809011";
+	*/
 	
-	/*
 	// PC Casa
-	String bd = "jdbc:mysql://localhost/bancofuctura?autoReconnect=true&useSSL=false";
+	String bd = "jdbc:mysql://localhost/cursofuctura?autoReconnect=true&useSSL=false";
 	String user = "root";
 	String password = "root";
-	*/
+	
 	
 	
 	public Connection getConnection() {

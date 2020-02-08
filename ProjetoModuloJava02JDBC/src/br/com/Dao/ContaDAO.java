@@ -12,30 +12,38 @@ import br.com.Model.Util.ConnectionBD;
 
 public class ContaDAO {
 
-	private Connection connection;
-	
-	public ContaDAO() throws SQLException {
-		this.connection = new ConnectionBD().getConnection();
-	}
+	ConnectionBD conexao = new ConnectionBD();
 
-	public Conta selectContaPessoa_Conta(Conta conta) throws SQLException {
+
+	public Conta selectContaPessoa_Conta(Conta conta) {
 		
 		Conta ct = new Conta();
 		String sql = "select * from conta where idConta = "+conta.getIdConta()+"";
-		
-		PreparedStatement stmt = this.connection.prepareStatement(sql);
-		
-		ResultSet result = stmt.executeQuery();
-		
-		while(result.next()) {
+		Connection conn = conexao.getConnection();
+		PreparedStatement stmt;
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			
+			ResultSet result = stmt.executeQuery();
+			
+			while(result.next()) {
 
-			ct.setIdConta(result.getInt("idconta"));
-			ct.setLimite(result.getInt("limite"));
-			ct.setSaldo(result.getInt("saldo"));
-
+				ct.setIdConta(result.getInt("idconta"));
+				ct.setLimite(result.getInt("limite"));
+				ct.setSaldo(result.getInt("saldo"));
+			}	
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao selecioar a conta - ERRO: "+e.getMessage());
+		} finally {
+			
+			conexao.fecharConn(conn);
+			
 		}
-
+		
 		return ct;
+		
 		
 	}
 	
@@ -43,9 +51,9 @@ public class ContaDAO {
 		
 		String sql = "insert into conta (idconta,limite,saldo)"
 				+ "values (?,?,?)";
-		
+		Connection conn = conexao.getConnection();
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 
 			stmt.setInt(1, conta.getIdConta());
@@ -56,18 +64,29 @@ public class ContaDAO {
 			stmt.close();
 			
 		} catch (SQLException e) {	
-			throw new RuntimeException(e);
+			System.out.println("Erro ao inserir uma conta - ERRO: "+ e.getMessage());
+		} finally {
+			conexao.fecharConn(conn);
 		}
 		
 	}
 	
-	public void updateContaDAO(Pessoa pessoaConta, String campoAlterado, String dadoAlterado) throws SQLException {
+	public void updateContaDAO(Pessoa pessoaConta, String campoAlterado, String dadoAlterado) {
 		String sql =  "update conta set "+campoAlterado+" = '"+dadoAlterado+"' where idConta = "+pessoaConta.getConta().getIdConta()+"";
 		System.out.println("sql: "+sql);
-		System.out.println("Cliente alterado com sucesso!");
-		PreparedStatement stmt = this.connection.prepareStatement(sql);
-		stmt.execute();
-		stmt.close();
+		Connection conn = conexao.getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao modificar conta - ERRO: "+e.getMessage());
+		} finally {
+			conexao.fecharConn(conn);
+		}
+
 		
 	}
 }

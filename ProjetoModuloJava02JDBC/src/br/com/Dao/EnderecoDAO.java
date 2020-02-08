@@ -51,8 +51,6 @@ public class EnderecoDAO {
 		String sql = "insert into endereco (Rua,numero,complemento)"
 				+ "values (?,?,?)";
 		
-		String sql1 = "select MAX(e.idEndereco) AS idEndereco, e.rua, e.numero, e.complemento from endereco e";
-		
 		Endereco enderecoPessoa = new Endereco();
 		Connection conn = conexao.getConnection();
 		try {
@@ -67,8 +65,10 @@ public class EnderecoDAO {
 			stmt.close();
 			
 		} catch (SQLException e) {	
-			throw new RuntimeException(e);
+			System.out.println("Erro ao inserir um endereço - ERRO: "+e.getMessage());
 		}
+		
+		String sql1 = "select MAX(e.idEndereco) AS idEndereco, e.rua, e.numero, e.complemento from endereco e";
 		
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql1);
@@ -84,7 +84,7 @@ public class EnderecoDAO {
 							
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println("Erro ao buscar maior ID(PK) - ERRO: "+e.getMessage());
 		} finally {
 			conexao.fecharConn(conn);;
 		}
@@ -113,7 +113,6 @@ public class EnderecoDAO {
 
 	public void updateEnderecoDAO(Pessoa pessoaEndereco, String ruaAlterar, int numeroAlterar, String complementoAlterar ) {
 		
-		// update endereco set rua = 99 , numero = 98 , complemento = 'casa' where idEndereco = 41;
 		String sql =  "update endereco set rua = '"+ruaAlterar+"', numero = "+numeroAlterar+", complemento = '"+complementoAlterar+"' "+
 				" where idEndereco = "+pessoaEndereco.getEndereco().getIdEndereco()+"";
 		System.out.println("sql: "+sql);
@@ -126,8 +125,7 @@ public class EnderecoDAO {
 			stmt.close();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro ao realizar a atualização do endereço - ERRO: "+e.getMessage());
 		} finally {
 			conexao.fecharConn(conn);
 		}

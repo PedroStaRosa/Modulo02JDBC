@@ -10,12 +10,13 @@ public class ControllerConta {
 
 
 	// FUNCTION
-	public void insertConta (Conta conta) throws SQLException {
+	public void insertConta (Conta conta) {
 		
-		ContaDAO ctDAO = new ContaDAO();
+		ContaDAO ctDAO;
+		ctDAO = new ContaDAO();
 		conta.setSaldo(0);
 		ctDAO.insertContaDAO(conta);
-		
+
 	}
 	
 }
