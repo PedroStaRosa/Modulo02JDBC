@@ -2,6 +2,8 @@ package br.com.Controller;
 
 import java.util.Scanner;
 
+import br.com.Dao.PessoaDAO;
+
 
 public class App {
 
@@ -33,11 +35,23 @@ public class App {
 			
 			switch (escolha) {
 			case 1:
-				
+				String login, senha;
 				/**
 				 * EFETUAR UM METODO DE AUTENTICAR O USUARIO
-				 * */			
-				menuAdmistrativo();
+				 * */	
+				System.out.println("Entre com seu login e senha");
+				System.out.println("Login: ");
+				login = sc.nextLine();
+				System.out.println("Senha:");
+				senha = sc.nextLine();
+				PessoaDAO pDAO = new PessoaDAO();
+				if(pDAO.efetuarLoginDAO(login, senha)) {
+					menuAdmistrativo();
+				}else {
+					System.out.println("Dados incorreto!!");
+				}
+					
+				
 				break;
 			case 2:
 				System.out.println("Ola 02");

@@ -203,6 +203,31 @@ public class PessoaDAO {
 			
 		} 
 	
+	public boolean efetuarLoginDAO(String nome, String senha) {
+		
+		try {
+			String sqlLogin = "select * from pessoa where nome = ? and senha = ?";
+			Connection conn = conexao.getConnection();
+			PreparedStatement stmt;
+			
+			stmt = conn.prepareStatement(sqlLogin);
+			
+			stmt.setString(1, nome);
+			stmt.setString(2, senha);
+			
+			ResultSet result = stmt.executeQuery();
+			
+			if(result.first()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			
+		}
+	
+		return false;
+	}
+	
 	
 	// Data: 08/02/2020
 	//SelectAllPersonDAO_01 - METODO DEFASADO
