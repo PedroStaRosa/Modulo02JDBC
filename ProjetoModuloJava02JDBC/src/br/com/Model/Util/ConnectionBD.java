@@ -12,11 +12,21 @@ public class ConnectionBD {
 	String password = "@Gt0809011";
 	*/
 	
+	/*
 	// PC Casa
 	String bd = "jdbc:mysql://localhost/cursofuctura?autoReconnect=true&useSSL=false";
 	String user = "root";
 	String password = "root";
+	*/
 	
+	/**
+	 *
+	 * */
+	
+	// BANCO REMOTO
+	String bd = "jdbc:mysql://remotemysql.com:3306/avzWm9VmyD?autoReconnect=true&useSSL=false";
+	String user = "avzWm9VmyD";
+	String password = "7pJbXRuiA0";
 	
 	
 	public Connection getConnection() {

@@ -46,7 +46,7 @@ public class PessoaDAO {
 
 	public void DeletePersonDAO(String cpfCliente){
 		
-		String sqlDeletePerson = "Delete from Pessoa " + "where cpf = "+cpfCliente+"";
+		String sqlDeletePerson = "Delete from pessoa " + "where cpf = "+cpfCliente+"";
 		Connection conn = conexao.getConnection();
 		try {
 			

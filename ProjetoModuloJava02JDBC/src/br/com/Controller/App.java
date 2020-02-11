@@ -1,7 +1,10 @@
 package br.com.Controller;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import br.com.Model.Util.ConnectionBD;
 
 
 public class App {
@@ -10,7 +13,7 @@ public class App {
 		
 		/*Connection conn = new ConnectionBD().getConnection();
 		System.out.println("Connection OK !!! :)");*/
-		menu();
+	menu();
 
 	}
 	

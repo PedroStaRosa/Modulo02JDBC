@@ -68,8 +68,9 @@ public class EnderecoDAO {
 			System.out.println("Erro ao inserir um endereço - ERRO: "+e.getMessage());
 		}
 		
-		String sql1 = "select MAX(e.idEndereco) AS idEndereco, e.rua, e.numero, e.complemento from endereco e";
-		
+		//String sql1 = "select MAX(e.idEndereco) AS idEndereco, e.rua, e.numero, e.complemento from endereco e";
+		String sql1 = "select idendereco, rua, numero, complemento from endereco" + 
+				" where idendereco = (select max(idendereco) from endereco)";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql1);
 			
@@ -94,7 +95,7 @@ public class EnderecoDAO {
 	
 	public void DeleteEnderecoDAO(Pessoa enderecoPessoa) {
 
-		String sqlDeleteEndereco = "Delete from Endereco " + "where idendereco = "+enderecoPessoa.getEndereco().getIdEndereco()+"";
+		String sqlDeleteEndereco = "Delete from endereco " + "where idendereco = "+enderecoPessoa.getEndereco().getIdEndereco()+"";
 		Connection conn = conexao.getConnection();
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sqlDeleteEndereco);
