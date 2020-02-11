@@ -1,25 +1,68 @@
 package br.com.Controller;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Scanner;
-
-import br.com.Model.Util.ConnectionBD;
 
 
 public class App {
 
+	static Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		
 		/*Connection conn = new ConnectionBD().getConnection();
 		System.out.println("Connection OK !!! :)");*/
-	menu();
+	login();	
+	//menuAdmistrativo();
+	
 
 	}
 	
-	public static void menu () {
+	
+	public static void login() {
 		
-		Scanner sc = new Scanner(System.in);
+		String menu = "\n\t#Olá"
+				+ "\n\t1. Menu Administrativo."
+				+ "\n\t2. Menu Usuario."
+				+ "\n\t3. Sair.";
+		int escolha = 0;
+		boolean sair = false;
+		do {
+			
+			System.out.println(menu);
+			escolha = sc.nextInt(); sc.nextLine();
+			
+			switch (escolha) {
+			case 1:
+				
+				/**
+				 * EFETUAR UM METODO DE AUTENTICAR O USUARIO
+				 * */			
+				menuAdmistrativo();
+				break;
+			case 2:
+				System.out.println("Ola 02");
+				break;
+			case 3:
+				//SAIR DO APP.
+				sair = true;
+				System.out.println("Bye!! Ate Logo =)");
+				break;
+			default:
+				String messagemErro = "\t#Opção invalida."
+						+ "\n\t#Escolha uma opção.";
+				System.out.println(messagemErro);
+				break;
+			}
+			
+		} while (sair!=true);
+
+		
+	}
+	
+	
+	public static void menuAdmistrativo () {
+		
+		
 		boolean sair = false;
 		int escolha = 0;
 		String pesquisa="";
@@ -30,8 +73,9 @@ public class App {
 				   +"\n#\t 3. Pesquisar Cliente"+"          #"
 				   +"\n#\t 4. Remover Cliente"+"            #"
 				   +"\n#\t 5. Listar todos clientes"+"      #"
-				   +"\n#\t 6. Sair"+"                       #"
-				   +"\n--------------------------------------";
+				   +"\n----------------------------------------"
+				   +"\n#\t 6. Fechar APP."+"                #"
+				   +"\n----------------------------------------";
 		
 		do {
 			
@@ -78,8 +122,9 @@ public class App {
 			
 			case 6:
 				//SAIR DO APP.
-				sair = true;
+				//sair = true;
 				System.out.println("Bye!! Ate Logo =)");
+				System.exit(0); // FECHAR APLICAÇÃO POR COMPLETO.
 				
 			break;
 			
