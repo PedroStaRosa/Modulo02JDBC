@@ -51,6 +51,12 @@ public class ControllerPessoa {
 		sc.nextLine();
 		System.out.println("Sexo: (M/F)");
 		p.setSexo(sc.nextLine());
+		System.out.println("Login:");
+		p.setLogin(sc.nextLine());
+		System.out.println("Senha:");
+		p.setPassword(sc.nextLine());
+		System.out.println("Nivel de acesso: (1) Administrativo / (2) Cliente");
+		p.setNivelAcesso(sc.nextInt());
 		System.out.println("Numero da conta:");
 		c.setIdConta(sc.nextInt());
 		sc.nextLine();

@@ -20,8 +20,8 @@ public class PessoaDAO {
 
 	public void insertPersonDAO (Pessoa pessoa) {
 		
-		String sql = "insert into pessoa (cpf,nome,idade,sexo,numero_conta,id_endereco)"
-				+ "values (?,?,?,?,?,?)";
+		String sql = "insert into pessoa (cpf,nome,idade,sexo,login,password,nivelAcesso,numero_conta,id_endereco)"
+				+ "values (?,?,?,?,?,?,?,?,?)";
 		Connection conn = conexao.getConnection();
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -30,8 +30,11 @@ public class PessoaDAO {
 			stmt.setString(2, pessoa.getNome());
 			stmt.setInt(3, pessoa.getIdade());
 			stmt.setString(4, pessoa.getSexo());
-			stmt.setInt(5, pessoa.getConta().getIdConta());
-			stmt.setInt(6, pessoa.getEndereco().getIdEndereco());
+			stmt.setString(5, pessoa.getLogin());
+			stmt.setString(6, pessoa.getPassword());
+			stmt.setInt(7, pessoa.getNivelAcesso());
+			stmt.setInt(8, pessoa.getConta().getIdConta());
+			stmt.setInt(9, pessoa.getEndereco().getIdEndereco());
 			
 			stmt.execute();
 			stmt.close();
@@ -204,14 +207,14 @@ public class PessoaDAO {
 		} 
 	
 	public boolean efetuarLoginDAO(String nome, String senha) {
-		
-		try {
-			String sqlLogin = "select * from pessoa where nome = ? and senha = ?";
 			Connection conn = conexao.getConnection();
+		try {
+
+			String sqlLogin = "select * from pessoa where login = ? and password = ? ";
+			
 			PreparedStatement stmt;
 			
 			stmt = conn.prepareStatement(sqlLogin);
-			
 			stmt.setString(1, nome);
 			stmt.setString(2, senha);
 			
@@ -223,6 +226,8 @@ public class PessoaDAO {
 			
 		} catch (Exception e) {
 			
+		} finally {
+			conexao.fecharConn(conn);
 		}
 	
 		return false;

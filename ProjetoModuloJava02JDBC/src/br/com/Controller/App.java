@@ -81,7 +81,7 @@ public class App {
 		int escolha = 0;
 		String pesquisa="";
 		ControllerPessoa controlPessoa = new ControllerPessoa();
-		String menu ="---------MENU--------------------------"
+		String menu ="---------MENU-ADMINISTRATIVO------------"
 				   +"\n#\t 1. Cadastrar Cliente."+"         #"
 				   +"\n#\t 2. Alterar Cliente"+"            #"
 				   +"\n#\t 3. Pesquisar Cliente"+"          #"
