@@ -40,13 +40,13 @@ public class App {
 				 * EFETUAR UM METODO DE AUTENTICAR O USUARIO
 				 * */
 				
-				if(controlPessoa.login(1)) {
+				if(controlPessoa.login(1) != null) {
 					menuAdmistrativo();
 				}
 				break;
 			case 2:
 			
-				if(controlPessoa.login(2)) {
+				if(controlPessoa.login(2) != null) {
 					menuCliente();
 				}
 				break;

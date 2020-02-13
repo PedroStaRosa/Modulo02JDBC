@@ -223,6 +223,7 @@ public class PessoaDAO {
 			if(result.first()) {
 				Pessoa p = new Pessoa();
 				
+				p.setCpf(result.getString("cpf"));
 				p.setNivelAcesso(result.getInt("nivelAcesso"));
 				
 				return p;

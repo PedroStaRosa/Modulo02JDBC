@@ -261,7 +261,7 @@ public class ControllerPessoa {
 		
 	}
 	
-	public boolean login(int nivel) {
+	public Pessoa login(int nivel) {
 
 		Scanner sc = new Scanner(System.in);
 		
@@ -280,19 +280,18 @@ public class ControllerPessoa {
 		if(p != null) {
 			// LIBERA TODO SISTEMA AO NIVEL DE ACESSO 1
 			if(p.getNivelAcesso() == 1) {
-				return true;
+				return p;
 			}
 			if (p.getNivelAcesso() != nivel) {
 				System.out.println("Desculpe, você não tem permissão ao menu admistrativo.");
-				return false;
+				return null;
 			}
-			
-			return true;
+			return p;
 		}else {
 			System.out.println("Dados incorreto!!");
 		}
 		
-		return false;
+		return null;
 		
 	}
 }
