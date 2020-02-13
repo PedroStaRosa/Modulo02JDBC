@@ -3,6 +3,7 @@ package br.com.Controller;
 import java.util.Scanner;
 
 import br.com.Dao.PessoaDAO;
+import br.com.Model.Pessoa;
 
 
 public class App {
@@ -32,29 +33,22 @@ public class App {
 			
 			System.out.println(menu);
 			escolha = sc.nextInt(); sc.nextLine();
-			
+			ControllerPessoa controlPessoa = new ControllerPessoa();
 			switch (escolha) {
 			case 1:
-				String login, senha;
 				/**
 				 * EFETUAR UM METODO DE AUTENTICAR O USUARIO
-				 * */	
-				System.out.println("Entre com seu login e senha");
-				System.out.println("Login: ");
-				login = sc.nextLine();
-				System.out.println("Senha:");
-				senha = sc.nextLine();
-				PessoaDAO pDAO = new PessoaDAO();
-				if(pDAO.efetuarLoginDAO(login, senha)) {
-					menuAdmistrativo();
-				}else {
-					System.out.println("Dados incorreto!!");
-				}
-					
+				 * */
 				
+				if(controlPessoa.login(1)) {
+					menuAdmistrativo();
+				}
 				break;
 			case 2:
-				System.out.println("Ola 02");
+			
+				if(controlPessoa.login(2)) {
+					menuCliente();
+				}
 				break;
 			case 3:
 				//SAIR DO APP.
@@ -151,4 +145,11 @@ public class App {
 		
 	}
 
+	public static void menuCliente() {
+		
+		String menu= "BEM VINDO AO MENU CLIENTE";
+		System.out.println(menu);
+		
+	}
+	
 }

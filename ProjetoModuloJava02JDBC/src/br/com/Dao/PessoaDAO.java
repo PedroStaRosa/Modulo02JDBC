@@ -206,7 +206,7 @@ public class PessoaDAO {
 			
 		} 
 	
-	public boolean efetuarLoginDAO(String nome, String senha) {
+	public Pessoa efetuarLoginDAO(String nome, String senha) {
 			Connection conn = conexao.getConnection();
 		try {
 
@@ -221,7 +221,11 @@ public class PessoaDAO {
 			ResultSet result = stmt.executeQuery();
 			
 			if(result.first()) {
-				return true;
+				Pessoa p = new Pessoa();
+				
+				p.setNivelAcesso(result.getInt("nivelAcesso"));
+				
+				return p;
 			}
 			
 		} catch (Exception e) {
@@ -230,7 +234,7 @@ public class PessoaDAO {
 			conexao.fecharConn(conn);
 		}
 	
-		return false;
+		return null;
 	}
 	
 	

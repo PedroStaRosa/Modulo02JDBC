@@ -261,4 +261,38 @@ public class ControllerPessoa {
 		
 	}
 	
+	public boolean login(int nivel) {
+
+		Scanner sc = new Scanner(System.in);
+		
+		String login, senha;
+		/**
+		 * EFETUAR UM METODO DE AUTENTICAR O USUARIO
+		 * */	
+		System.out.println("Entre com seu login e senha");
+		System.out.println("Login: ");
+		login = sc.nextLine();
+		System.out.println("Senha:");
+		senha = sc.nextLine();
+		PessoaDAO pDAO = new PessoaDAO();
+		Pessoa p = pDAO.efetuarLoginDAO(login, senha);
+		
+		if(p != null) {
+			// LIBERA TODO SISTEMA AO NIVEL DE ACESSO 1
+			if(p.getNivelAcesso() == 1) {
+				return true;
+			}
+			if (p.getNivelAcesso() != nivel) {
+				System.out.println("Desculpe, você não tem permissão ao menu admistrativo.");
+				return false;
+			}
+			
+			return true;
+		}else {
+			System.out.println("Dados incorreto!!");
+		}
+		
+		return false;
+		
+	}
 }
