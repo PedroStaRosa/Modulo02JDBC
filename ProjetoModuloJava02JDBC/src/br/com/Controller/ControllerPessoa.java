@@ -1,6 +1,5 @@
 package br.com.Controller;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -144,7 +143,7 @@ public class ControllerPessoa {
 					   +"\n#\tRua: "+cliente.getEndereco().getRua()
 					   +"\n#\tNumero: "+cliente.getEndereco().getNumero()
 					   +"\n#\tComplemento: "+cliente.getEndereco().getComplemento()
-					   +"";
+					   +"\n";
 			
 		System.out.println(srtCliente);
 		
@@ -153,12 +152,11 @@ public class ControllerPessoa {
 	public void DeletePerson (String cpfCliente) {
 		
 		PessoaDAO pDAO = new PessoaDAO();
-		EnderecoDAO endDAO = new EnderecoDAO();
-		
+		ControllerEndereco controlEnd = new ControllerEndereco();
 		Pessoa pessoa = pDAO.SelectOnlyPersonDAO(cpfCliente);
 		
 		pDAO.DeletePersonDAO(cpfCliente);
-		endDAO.DeleteEnderecoDAO(pessoa);
+		controlEnd.deleteEndereco(pessoa);
 		
 		System.out.println("Cliente: "+pessoa.getNome()+" excluido com sucesso!!");
 	}
@@ -204,45 +202,34 @@ public class ControllerPessoa {
 			
 			switch (campoAlterar) {
 			case 1: //OK
+				// ALTERAR NOME
 				System.out.println("Digite o novo nome: ");
 				dadoAlterado = sc.nextLine();
 				pDAO.updatePersonDAO(cliente.getCpf(), "nome",dadoAlterado);
 				break;
 				
 			case 2: // OK
+				// ALTERAR IDADE
 				System.out.println("Digite a nova idade: ");
 				dadoAlterado = sc.nextLine();
 				pDAO.updatePersonDAO(cliente.getCpf(), "idade",dadoAlterado);
 				break;
 
 			case 3: // OK
+				// ALTERAR SEXO
 				System.out.println("Digite o novo sexo: ");
 				dadoAlterado = sc.nextLine();
 				pDAO.updatePersonDAO(cliente.getCpf(), "sexo",dadoAlterado);
 				break;
 			case 4:
-				//ALTERAR LIMITE DA CONTA
-				System.out.println("Digite o novo limite da conta: ");
-				dadoAlterado = sc.nextLine();
-				cDAO.updateContaDAO(cliente, "limite" ,dadoAlterado);
+				// ALTERAR LIMITE DA CONTA
+				ControllerConta controlConta = new ControllerConta();
+				controlConta.updateConta(cliente);
 				break;
 			case 5:
-				//ALTERAR RUA
-				String ruaAlterar;
-				int numeroAlterar;
-				String complementoAlterar;
-				
-				System.out.println("Digite o novo endereco do cliente: ");
-				System.out.println("Rua:");
-				ruaAlterar = sc.nextLine();
-				System.out.println("Numero: ");
-				numeroAlterar = sc.nextInt();
-				sc.nextLine();
-				System.out.println("Complemento: (CASA / APT )");
-				complementoAlterar = sc.nextLine();
-				
-				endDAO.updateEnderecoDAO(cliente, ruaAlterar, numeroAlterar, complementoAlterar);
-				
+				// ALTERAR ENDEREÇO
+				 ControllerEndereco controlEndereco = new ControllerEndereco();
+				controlEndereco.updateEndereco(cliente);
 				break;
 			case 8:
 				sair= true;
@@ -266,9 +253,6 @@ public class ControllerPessoa {
 		Scanner sc = new Scanner(System.in);
 		
 		String login, senha;
-		/**
-		 * EFETUAR UM METODO DE AUTENTICAR O USUARIO
-		 * */	
 		System.out.println("Entre com seu login e senha");
 		System.out.println("Login: ");
 		login = sc.nextLine();

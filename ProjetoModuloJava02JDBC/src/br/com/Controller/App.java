@@ -34,20 +34,22 @@ public class App {
 			System.out.println(menu);
 			escolha = sc.nextInt(); sc.nextLine();
 			ControllerPessoa controlPessoa = new ControllerPessoa();
+			
 			switch (escolha) {
 			case 1:
 				/**
 				 * EFETUAR UM METODO DE AUTENTICAR O USUARIO
 				 * */
-				
-				if(controlPessoa.login(1) != null) {
-					menuAdmistrativo();
+				//if(controlPessoa.login(1) != null) {
+				Pessoa pessoaAdm = controlPessoa.login(1);
+				if(pessoaAdm != null) {
+					menuAdmistrativo(pessoaAdm);
 				}
 				break;
 			case 2:
-			
-				if(controlPessoa.login(2) != null) {
-					menuCliente();
+				Pessoa pessoaCliente = controlPessoa.login(2);
+				if(pessoaCliente != null) {
+					menuCliente(pessoaCliente);
 				}
 				break;
 			case 3:
@@ -68,7 +70,7 @@ public class App {
 	}
 	
 	
-	public static void menuAdmistrativo () {
+	public static void menuAdmistrativo (Pessoa pessoa) {
 		
 		
 		boolean sair = false;
@@ -145,10 +147,60 @@ public class App {
 		
 	}
 
-	public static void menuCliente() {
+	public static void menuCliente(Pessoa pessoa) {
 		
-		String menu= "BEM VINDO AO MENU CLIENTE";
-		System.out.println(menu);
+		String bemvindo= "\n\tBEM VINDO "+pessoa.getNome()+""
+				+ "\n-----------------------------"
+				+ "\nLimite da conta: "+ValidaOper.imprimeReal(pessoa.getConta().getLimite())+""
+			    + "\nSaldo atual: "+ValidaOper.imprimeReal(pessoa.getConta().getSaldo())+""
+			    + "\n-----------------------------";
+		System.out.println(bemvindo);
+		/*System.out.println(pessoa.getNome());
+		System.out.println(ValidaOper.imprimeCPF(pessoa.getCpf()));
+		System.out.println(pessoa.getEndereco().getRua());
+		System.out.println(pessoa.getConta().getSaldo());*/
+		
+		boolean sair = false;
+		int escolha = 0;
+		ControllerPessoa controlPessoa = new ControllerPessoa();
+		String menu ="---------MENU-CLIENTE------------"
+				   +"\n#\t 1. Sacar."+"               #"
+				   +"\n#\t 2. Depositar."+"           #"
+				   +"\n#\t 3. Transferir."+"          #"
+				   +"\n--------------------------------"
+				   +"\n#\t 8. Fechar APP."+"          #"
+				   +"\n--------------------------------";
+		do {
+			
+			System.out.println(menu);
+			escolha = sc.nextInt(); sc.nextLine();
+			
+			switch (escolha) {
+			case 1:
+				// SACAR.
+				
+				
+				break ;
+			case 2:
+				// DEPOSITAR.
+				
+				
+				break ;
+			case 3:
+				// TRANSFERIR.
+				
+				
+				break ;
+			case 8:
+				System.out.println("Bye!! Ate Logo =)");
+				System.exit(0); // FECHAR APLICAÇÃO POR COMPLETO.
+			break;	
+				
+			default:
+				System.out.println("Opção invalida, tente novamente!!");
+			}
+			
+		} while (sair != true);
 		
 	}
 	

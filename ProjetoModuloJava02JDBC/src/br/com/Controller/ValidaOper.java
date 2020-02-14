@@ -1,5 +1,6 @@
 package br.com.Controller;
 
+import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 
 public class ValidaOper {
@@ -65,5 +66,10 @@ public class ValidaOper {
             CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
         }
 	
-    
+    public static String imprimeReal (double valor) {
+    	
+        DecimalFormat df = new DecimalFormat("R$ #,##0.00");  
+        return df.format(valor);
+
+    }
 }

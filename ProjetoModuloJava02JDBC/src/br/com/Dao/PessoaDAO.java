@@ -210,7 +210,12 @@ public class PessoaDAO {
 			Connection conn = conexao.getConnection();
 		try {
 
-			String sqlLogin = "select * from pessoa where login = ? and password = ? ";
+			/*String sqlLogin = "select * from pessoa"
+					+ "join conta c on p.Numero_conta = c.idConta "
+					+ "join endereco e on p.Id_endereco = e.idEndereco "
+					+ "where login = ? and password = ? "; */
+			String sqlLogin = "select * from pessoa p join conta c on p.numero_conta = c.idconta join endereco e on p.id_endereco = e.idendereco "
+					+ "where p.login = ? and p.password = ?";
 			
 			PreparedStatement stmt;
 			
@@ -223,8 +228,40 @@ public class PessoaDAO {
 			if(result.first()) {
 				Pessoa p = new Pessoa();
 				
-				p.setCpf(result.getString("cpf"));
+				/*p.setCpf(result.getString("cpf"));
+				p.setNome(result.getString("nome"));
 				p.setNivelAcesso(result.getInt("nivelAcesso"));
+				*/
+				
+				p.setCpf(result.getString("cpf"));
+				p.setNome(result.getString("nome"));
+				p.setIdade(result.getInt("idade"));
+				p.setSexo(result.getString("sexo"));
+				p.setNivelAcesso(result.getInt("nivelAcesso"));
+				
+				// MONTAR CONTA DO CLIENTE
+				
+				/* No resultado fazer a busca pelo ContaDAO
+				 * para montar um objeto conta e setar o numero da conta em pessoa pelo
+				 * resultado */
+				Conta conta = new Conta();
+				
+				conta.setIdConta(result.getInt("idConta"));
+				conta.setLimite(result.getDouble("limite"));
+				conta.setSaldo(result.getDouble("saldo"));
+				
+				p.setConta(conta);
+				
+				//###### MONTAR ENDEREÇO DO CLIENTE ######################
+				
+				Endereco endereco = new Endereco();
+				
+				endereco.setIdEndereco(result.getInt("idEndereco"));
+				endereco.setRua(result.getString("rua"));
+				endereco.setNumero(result.getInt("numero"));
+				endereco.setComplemento(result.getString("complemento"));			
+				
+				p.setEndereco(endereco);
 				
 				return p;
 			}
