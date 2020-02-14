@@ -89,9 +89,9 @@ public class ContaDAO {
 		
 	}
 
-	public void sacarDAO(Conta conta, double valorSacar) {
+	public void sacar_depositar_DAO(Conta conta, double valor) {
 		
-		String sql =  "update conta set saldo = "+valorSacar+" where idConta = "+conta.getIdConta()+"";
+		String sql =  "update conta set saldo = "+valor+" where idConta = "+conta.getIdConta()+"";
 		Connection conn = conexao.getConnection();
 		PreparedStatement stmt;
 		try {

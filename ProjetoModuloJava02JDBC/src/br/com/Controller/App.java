@@ -173,22 +173,24 @@ public class App {
 			Conta conta = atualizaSaldo.selectConta(pessoa);
 			System.out.println(menu);
 			escolha = sc.nextInt(); sc.nextLine();
-			
+			ControllerConta controlConta = new ControllerConta();
 			switch (escolha) {
 			case 1:
 				// SACAR.
-				ControllerConta controlConta = new ControllerConta();
+				
 				controlConta.sacar(conta);
 				
 				break ;
 			case 2:
 				// DEPOSITAR.
 				
+				controlConta.depositar(conta);
 				
 				break ;
 			case 3:
 				// TRANSFERIR.
 				
+				controlConta.transferir(conta);
 				
 				break ;
 			case 8:

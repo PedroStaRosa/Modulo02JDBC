@@ -30,6 +30,19 @@ public class ControllerConta {
 		cDAO.updateContaDAO(pessoa, "limite" ,dadoAlterado);
 	}
 	
+	public Conta selectConta(Pessoa pessoa) {
+		
+		ContaDAO cDAO = new ContaDAO();
+		Conta conta = cDAO.selectContaPessoa_Conta(pessoa);
+		
+		String dadosAtualizados = " Limite: "+ValidaOper.imprimeReal(conta.getLimite())+""
+								+ "\n Saldo: "+ValidaOper.imprimeReal(conta.getSaldo())+"";
+		
+		System.out.println(dadosAtualizados);
+		return conta;
+		
+	}
+	
 	public void sacar(Conta conta) {
 		double valorSacar;
 		boolean sair = false;
@@ -48,7 +61,7 @@ public class ControllerConta {
 				double saldoAtualizado;
 				saldoAtualizado = conta.getSaldo() - valorSacar;
 				ContaDAO cDAO = new ContaDAO();
-				cDAO.sacarDAO(conta,saldoAtualizado);
+				cDAO.sacar_depositar_DAO(conta,saldoAtualizado);
 				System.out.println("\nSAQUE REALIZADO COM SUCESSO!!!\n");
 				sair = true;
 			}
@@ -57,17 +70,37 @@ public class ControllerConta {
 		
 	}
 
-	public Conta selectConta(Pessoa pessoa) {
+	public void depositar(Conta conta) {
 		
-		ContaDAO cDAO = new ContaDAO();
-		Conta conta = cDAO.selectContaPessoa_Conta(pessoa);
+		double valorDeposito;
+		boolean sair = false;
+		Scanner sc = new Scanner(System.in);
 		
-		String dadosAtualizados = " Limite: "+ValidaOper.imprimeReal(conta.getLimite())+""
-								+ "\n Saldo: "+ValidaOper.imprimeReal(conta.getSaldo())+"";
+		do {
+			
+			System.out.println("Digite o valor que deseja depositar...");
+			valorDeposito = sc.nextDouble(); sc.nextLine();
+			
+			if((conta.getSaldo() + valorDeposito) > conta.getLimite()) {
+				System.out.println("Desculpe, limite excedido.");
+				System.out.println("Seu limite atual é de "+ValidaOper.imprimeReal(conta.getLimite())+"");
+				System.out.println("Saldo atual em conta "+ValidaOper.imprimeReal(conta.getSaldo()));
+				System.out.println("Valor disponivel para deposito: "+ValidaOper.imprimeReal(conta.getLimite()-conta.getSaldo()));
+			}else {
+			
+				double saldoAtualizado;
+				saldoAtualizado = conta.getSaldo() + valorDeposito;
+				ContaDAO cDAO = new ContaDAO();
+				cDAO.sacar_depositar_DAO(conta,saldoAtualizado);
+				System.out.println("\nDEPOSITO REALIZADO COM SUCESSO!!!\n");
+				sair = true;
+			}
+				
+		} while (sair = false);
 		
-		System.out.println(dadosAtualizados);
+	}
 
-		return conta;
-		
+	public void transferir (Conta conta) {
+		System.out.println("Ola transferir");
 	}
 }

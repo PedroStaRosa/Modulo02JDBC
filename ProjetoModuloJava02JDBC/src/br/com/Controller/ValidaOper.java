@@ -69,7 +69,7 @@ public class ValidaOper {
 	
     public static String imprimeReal (double valor) {
     	// #,##00.00
-        DecimalFormat df = new DecimalFormat("#,##00.00");  
+        DecimalFormat df = new DecimalFormat("R$ #,##0.00");  
         String result= df.format(valor);
         return result;
 
