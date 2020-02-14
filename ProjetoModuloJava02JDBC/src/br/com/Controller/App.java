@@ -3,6 +3,7 @@ package br.com.Controller;
 import java.util.Scanner;
 
 import br.com.Dao.PessoaDAO;
+import br.com.Model.Conta;
 import br.com.Model.Pessoa;
 
 
@@ -148,21 +149,14 @@ public class App {
 	}
 
 	public static void menuCliente(Pessoa pessoa) {
-		
-		String bemvindo= "\n\tBEM VINDO "+pessoa.getNome()+""
-				+ "\n-----------------------------"
-				+ "\nLimite da conta: "+ValidaOper.imprimeReal(pessoa.getConta().getLimite())+""
-			    + "\nSaldo atual: "+ValidaOper.imprimeReal(pessoa.getConta().getSaldo())+""
-			    + "\n-----------------------------";
-		System.out.println(bemvindo);
-		/*System.out.println(pessoa.getNome());
-		System.out.println(ValidaOper.imprimeCPF(pessoa.getCpf()));
-		System.out.println(pessoa.getEndereco().getRua());
-		System.out.println(pessoa.getConta().getSaldo());*/
-		
+			
 		boolean sair = false;
 		int escolha = 0;
-		ControllerPessoa controlPessoa = new ControllerPessoa();
+		int atualiza = 0;
+		ControllerConta atualizaSaldo = new ControllerConta();
+		String bemvindo= "\n\tBEM VINDO "+pessoa.getNome()+""
+			    + "\n-----------------------------";		    
+		
 		String menu ="---------MENU-CLIENTE------------"
 				   +"\n#\t 1. Sacar."+"               #"
 				   +"\n#\t 2. Depositar."+"           #"
@@ -170,15 +164,21 @@ public class App {
 				   +"\n--------------------------------"
 				   +"\n#\t 8. Fechar APP."+"          #"
 				   +"\n--------------------------------";
+		
 		do {
-			
+
+			if(atualiza < 1) {
+			System.out.println(bemvindo);
+			}
+			Conta conta = atualizaSaldo.selectConta(pessoa);
 			System.out.println(menu);
 			escolha = sc.nextInt(); sc.nextLine();
 			
 			switch (escolha) {
 			case 1:
 				// SACAR.
-				
+				ControllerConta controlConta = new ControllerConta();
+				controlConta.sacar(conta);
 				
 				break ;
 			case 2:
@@ -199,7 +199,7 @@ public class App {
 			default:
 				System.out.println("Opção invalida, tente novamente!!");
 			}
-			
+			atualiza++;
 		} while (sair != true);
 		
 	}

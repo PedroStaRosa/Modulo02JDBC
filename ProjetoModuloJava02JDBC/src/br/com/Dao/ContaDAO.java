@@ -15,10 +15,10 @@ public class ContaDAO {
 	ConnectionBD conexao = new ConnectionBD();
 
 
-	public Conta selectContaPessoa_Conta(Conta conta) {
+	public Conta selectContaPessoa_Conta(Pessoa pessoa) {
 		
 		Conta ct = new Conta();
-		String sql = "select * from conta where idConta = "+conta.getIdConta()+"";
+		String sql = "select * from conta where idConta = "+pessoa.getConta().getIdConta()+"";
 		Connection conn = conexao.getConnection();
 		PreparedStatement stmt;
 		try {
@@ -30,8 +30,8 @@ public class ContaDAO {
 			while(result.next()) {
 
 				ct.setIdConta(result.getInt("idconta"));
-				ct.setLimite(result.getInt("limite"));
-				ct.setSaldo(result.getInt("saldo"));
+				ct.setLimite(result.getDouble("limite"));
+				ct.setSaldo(result.getDouble("saldo"));
 			}	
 			
 		} catch (SQLException e) {
@@ -73,7 +73,6 @@ public class ContaDAO {
 	
 	public void updateContaDAO(Pessoa pessoaConta, String campoAlterado, String dadoAlterado) {
 		String sql =  "update conta set "+campoAlterado+" = '"+dadoAlterado+"' where idConta = "+pessoaConta.getConta().getIdConta()+"";
-		System.out.println("sql: "+sql);
 		Connection conn = conexao.getConnection();
 		PreparedStatement stmt;
 		try {
@@ -87,6 +86,24 @@ public class ContaDAO {
 			conexao.fecharConn(conn);
 		}
 
+		
+	}
+
+	public void sacarDAO(Conta conta, double valorSacar) {
+		
+		String sql =  "update conta set saldo = "+valorSacar+" where idConta = "+conta.getIdConta()+"";
+		Connection conn = conexao.getConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Erro ao sacar - ERRO: "+e.getMessage());
+		} finally {
+			conexao.fecharConn(conn);
+		}
 		
 	}
 }

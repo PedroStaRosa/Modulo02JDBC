@@ -278,9 +278,9 @@ public class PessoaDAO {
 	
 	// Data: 08/02/2020
 	//SelectAllPersonDAO_01 - METODO DEFASADO
-	public List<Pessoa> SelectAllPersonDAO_01(){
+	// public List<Pessoa> SelectAllPersonDAO_01(){
 		
-		String sqlSelect = "Select * from Pessoa " + "order by nome";
+		/*String sqlSelect = "Select * from Pessoa " + "order by nome";
 		
 		List<Pessoa> pessoaList = new ArrayList<Pessoa>();
 		Connection conn = conexao.getConnection();
@@ -298,13 +298,13 @@ public class PessoaDAO {
 				pessoa.setNome(result.getString("nome"));
 				pessoa.setIdade(result.getInt("idade"));
 				pessoa.setSexo(result.getString("sexo"));
-				
+				*/
 				// MONTAR CONTA DO CLIENTE
 				
 				/* No resultado fazer a busca pelo ContaDAO
 				 * para montar um objeto conta e setar o numero da conta em pessoa pelo
 				 * resultado */
-				Conta conta = new Conta();
+			/*	Conta conta = new Conta();
 				ContaDAO contaDAO = new ContaDAO();
 				Conta contaRetorno = new Conta();
 				
@@ -343,10 +343,10 @@ public class PessoaDAO {
 		
 		return pessoaList;
 			
-		} 
+		} */
 
 	//SelectOnlyPersonDAO_01 - METODO DEFASADO
-	public Pessoa SelectOnlyPersonDAO_01(String cpfCliente){
+/*	public Pessoa SelectOnlyPersonDAO_01(String cpfCliente){
 		
 		String sqlSelectOnlyPerson = "Select * from Pessoa " + "where cpf = "+cpfCliente+"";
 		
@@ -366,11 +366,11 @@ public class PessoaDAO {
 				pessoa.setSexo(result.getString("sexo"));
 				
 				// MONTAR CONTA DO CLIENTE
-				
+				*/
 				/* No resultado fazer a busca pelo ContaDAO
 				 * para montar um objeto conta e setar o numero da conta em pessoa pelo
 				 * resultado */
-				Conta conta = new Conta();
+				/*Conta conta = new Conta();
 				ContaDAO contaDAO = new ContaDAO();
 				Conta contaRetorno = new Conta();
 				
@@ -407,7 +407,7 @@ public class PessoaDAO {
 		//connection.close();
 		return pessoa;
 			
-		} 
+		} */
 	
 	
 	
