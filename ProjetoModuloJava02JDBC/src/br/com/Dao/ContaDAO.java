@@ -106,4 +106,8 @@ public class ContaDAO {
 		}
 		
 	}
+
+	public void transfere_DAO(int numeroContaBenef, String cpfBenef, double valorTransfere) {
+		
+	}
 }

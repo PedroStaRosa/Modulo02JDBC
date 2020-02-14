@@ -101,6 +101,59 @@ public class ControllerConta {
 	}
 
 	public void transferir (Conta conta) {
-		System.out.println("Ola transferir");
+		double valorTransfere;
+		int numeroContaBenef; // AG
+		String cpfBenef; //CC
+		
+		
+		Scanner sc = new Scanner(System.in);
+		ContaDAO cDAO = new ContaDAO();
+		
+		System.out.println("Digite o numero da conta beneficiada....");
+		numeroContaBenef = sc.nextInt(); sc.nextLine();
+		
+		System.out.println("Digite o cpf do beneficiario...");
+		cpfBenef = sc.nextLine();
+		
+		System.out.println("Digite o valor da transferencia....");
+		valorTransfere = sc.nextDouble(); sc.nextLine();
+		
+		cDAO.transfere_DAO(numeroContaBenef,cpfBenef,valorTransfere);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
+
+
 }
