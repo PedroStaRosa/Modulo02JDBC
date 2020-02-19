@@ -50,8 +50,7 @@ public class App {
 			case 2:
 				Pessoa pessoaCliente = controlPessoa.login(2);
 				if(pessoaCliente != null) {
-					//menuCliente(pessoaCliente);
-					menuAdmistrativo(pessoaCliente);
+					menuCliente(pessoaCliente);
 				}
 				break;
 			case 3:
