@@ -24,7 +24,7 @@ public class App {
 	
 	public static void login() {
 		
-		String menu = "\n\t#Olá"
+		String menu = "\n\t#Olá Usuario"
 				+ "\n\t1. Menu Administrativo."
 				+ "\n\t2. Menu Usuario."
 				+ "\n\t3. Sair.";
@@ -50,7 +50,8 @@ public class App {
 			case 2:
 				Pessoa pessoaCliente = controlPessoa.login(2);
 				if(pessoaCliente != null) {
-					menuCliente(pessoaCliente);
+					//menuCliente(pessoaCliente);
+					menuAdmistrativo(pessoaCliente);
 				}
 				break;
 			case 3:
